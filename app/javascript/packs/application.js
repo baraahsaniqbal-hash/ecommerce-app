@@ -22,65 +22,56 @@ ActiveStorage.start()
 
 let searchTimer;
 
+function currentAjaxParams() {
+  const form = $(".ajax-filters");
+
+  if (form.length) {
+    return form.serialize();
+  }
+
+  return {};
+}
+
 $(document).on("keyup", ".ajax-search", function () {
   const input = $(this);
 
   clearTimeout(searchTimer);
 
   searchTimer = setTimeout(function () {
-    // console.log(input.data("url"));
-    // console.log(input.val());
     $.ajax({
       url: input.data("url"),
-      method: "GET",
+      type: "GET",
       dataType: "script",
-      data: currentCategoryParams()
+      data: currentAjaxParams()
     });
   }, 300);
 });
 
 $(document).on("click", ".page-link", function (e) {
   e.preventDefault();
-    // console.log($(this).attr("href"));
+
   $.ajax({
     url: $(this).attr("href"),
     type: "GET",
     dataType: "script",
-    data: currentCategoryParams()
+    data: currentAjaxParams()
   });
 });
 
-$(document).on("change", ".ajax-sort", function () {
+$(document).on("change", ".ajax-sort, .ajax-filter", function () {
   $.ajax({
     url: $(this).data("url"),
     type: "GET",
     dataType: "script",
-    data: currentCategoryParams()
+    data: currentAjaxParams()
   });
 });
 
-$(document).on("change", ".ajax-filter", function () {
+window.reloadTable = function () {
   $.ajax({
     url: $(this).data("url"),
     type: "GET",
     dataType: "script",
-    data: currentCategoryParams()
-  });
-});
-
-window.currentCategoryParams = function () {
-  return {
-    search: $("#category-search").val(),
-    sort: $("#category-sort").val(),
-    status: $("#category-status").val()
-  };
-}
-
-window.reloadCategories = function () {
-  $.ajax({
-    url: "/admin/categories",
-    type: "GET",
-    dataType: "script",
-    data: currentCategoryParams()
+    data: currentAjaxParams()
   });
 }

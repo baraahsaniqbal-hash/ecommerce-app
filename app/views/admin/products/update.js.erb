@@ -1,0 +1,11 @@
+<% if @product.errors.any? %>
+
+    $("#modalBody").html("<%= j render('form') %>");
+
+<% else %>
+
+    $("#commonModal").modal("hide");
+    reloadTable();
+    $("#flash").html("<%= j render('shared/flash') %>");
+
+<% end %>

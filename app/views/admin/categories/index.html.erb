@@ -7,44 +7,45 @@
   <%= link_to "Add Category", new_admin_category_path, class: "btn btn-primary", data: { bs_toggle: "modal" , bs_target: "#commonModal" }, remote: true %>
 </div>
 
-<div class="row mb-3">
 
-  <div class="col-md-4">
-    <%= text_field_tag :search,
-                       params[:search],
-                       id: "category-search",
-                       class: "form-control ajax-search",
-                       placeholder: "Search category...",
-                       data: { url: admin_categories_path } %>
-  </div>
+  
+<%= form_with url: "#", method: :get, html: { class: "ajax-filters" } do %>
+  <div class="row mb-3">
 
-  <div class="col-md-3">
-    <%= select_tag :sort,
-          options_for_select([
-            ["Newest First", "newest"],
-            ["Oldest First", "oldest"],
-            ["Name (A-Z)", "name_asc"],
-            ["Name (Z-A)", "name_desc"]
-          ], params[:sort]),
-          class: "form-select ajax-sort",
-          id: "category-sort",
-          data: { url: admin_categories_path } %>
-  </div>
+    <div class="col-md-4">
+      <%= text_field_tag :search, params[:search],
+            id: "category-search",
+            class: "form-control ajax-search",
+            placeholder: "Search category...",
+            data: { url: admin_categories_path } %>
+    </div>
+    
+    <div class="col-md-3">
+      <%= select_tag :sort, options_for_select([
+                  ["Newest First", "newest"],
+                  ["Oldest First", "oldest"],
+                  ["Name (A-Z)", "name_asc"],
+                  ["Name (Z-A)", "name_desc"]
+            ], params[:sort]),
+            id: "category-sort",
+            class: "form-select ajax-sort",
+            data: { url: admin_categories_path } %>
+    </div>
 
-  <div class="col-md-3">
-    <%= select_tag :status,
-        options_for_select([
-          ["All Status", ""],
-          ["Active", "active"],
-          ["Inactive", "inactive"]
-        ], params[:status]),
-        class: "form-select ajax-filter",
-        id: "category-status",
-        data: {
-          url: admin_categories_path
-        } %>
+    <div class="col-md-3">
+      <%= select_tag :status, options_for_select([
+                  ["All Status", ""],
+                  ["Active", "active"],
+                  ["Inactive", "inactive"]
+            ], params[:status]),
+            id: "category-status",
+            class: "form-select ajax-filter",
+            data: { url: admin_categories_path } %>
+    </div>
+
   </div>
-</div>
+<% end %>
+
 
 <div class="card shadow-sm">
   <div class="card-body p-0">

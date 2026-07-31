@@ -8,7 +8,64 @@
                 class: "btn btn-primary" %>
   </div>
 
-  <div id="products-table">
-    <%= render "table" %>
+  <%= form_with url: "#", method: :get, html: { class: "ajax-filters" } do %>
+  <div class="row mb-3">
+    <div class="col-md-3">
+
+      <%= text_field_tag :search,
+                        params[:search],
+                        placeholder: "Search by Name or SKU",
+                        class: "form-control ajax-search",
+                        data: { url: admin_products_path } %>
+
+    </div>
+
+    <div class="col-md-3">
+      <%= select_tag :sort,
+          options_for_select([
+            ["Newest", "newest"],
+            ["Oldest", "oldest"],
+            ["Name (A-Z)", "name_asc"],
+            ["Name (Z-A)", "name_desc"],
+            ["Price (Low to High)", "price_asc"],
+            ["Price (High to Low)", "price_desc"],
+            ["Stock (Low to High)", "stock_asc"],
+            ["Stock (High to Low)", "stock_desc"]
+          ], params[:sort]),
+          include_blank: "Sort By",
+          class: "form-select ajax-sort",
+          data: { url: admin_products_path } %>
+    </div>
+
+    <div class="col-md-3">
+      <%= select_tag :status,
+          options_for_select([
+            ["Active", "active"],
+            ["Inactive", "inactive"]
+          ], params[:status]),
+          include_blank: "All Status",
+          class: "form-select ajax-filter",
+          data: { url: admin_products_path } %>
+    </div>
+
+    <div class="col-md-3">
+      <%= select_tag :category_id,
+          options_from_collection_for_select(
+            Category.order(:name),
+            :id,
+            :name,
+            params[:category_id]
+          ),
+          include_blank: "All Categories",
+          class: "form-select ajax-filter",
+          data: { url: admin_products_path } %>
+    </div>
+
   </div>
+  <% end %>
+
+  <div>
+    <%= render "table_with_pagination" %>
+  </div>
+
 </div>

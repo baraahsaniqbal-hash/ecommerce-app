@@ -2,6 +2,6 @@
   $("#modalBody").html("<%= escape_javascript render 'form', category: @category %>");
 <% else %>
   $("#commonModal").modal("hide");
-  reloadCategories();
+  reloadTable();
   $("#flash").html("<%= escape_javascript render 'shared/flash' %>");
 <% end %>
