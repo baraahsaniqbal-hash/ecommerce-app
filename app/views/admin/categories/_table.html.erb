@@ -1,0 +1,52 @@
+<table class="table table-hover mb-0">
+    <thead class="table-light">
+        <tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th width="180">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% if @categories.any? %>
+
+            <% @categories.each do |category| %>
+
+            <tr>
+                <td><%= category.name %></td>
+                <td><%= category.created_at.strftime("%d %b %Y") %></td>
+                <td><% if category.active? %>
+                        <span class="badge bg-success">Active</span>
+                    <% else %>
+                        <span class="badge bg-danger">Inactive</span>
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to "Edit",
+                        edit_admin_category_path(category),
+                        class: "btn btn-sm btn-warning", data: {bs_toggle: "modal", bs_target: "#categoryModal"}, remote: true %>
+
+                    <%= link_to "Delete",
+                        admin_category_path(category),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" },
+                        class: "btn btn-sm btn-danger", remote: true %>
+                </td>
+            </tr>
+
+            <% end %>
+        <% else %>
+
+            <tr>
+                <td colspan="4" class="text-center py-5">
+
+                    No categories found.
+
+                </td>
+            </tr>
+
+        <% end %>
+    </tbody>
+
+</table>

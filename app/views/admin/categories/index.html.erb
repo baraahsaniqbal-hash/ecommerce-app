@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="mb-0">Categories</h2>
+    <small class="text-muted">Manage all product categories</small>
+  </div>
+
+  <%= link_to "Add Category", new_admin_category_path, class: "btn btn-primary", data: { bs_toggle: "modal" , bs_target: "#categoryModal" }, remote: true %>
+</div>
+
+<div class="row mb-3">
+
+  <div class="col-md-4">
+    <%= text_field_tag :search,
+                       params[:search],
+                       id: "category-search",
+                       class: "form-control ajax-search",
+                       placeholder: "Search category...",
+                       data: { url: admin_categories_path } %>
+  </div>
+
+  <div class="col-md-3">
+    <%= select_tag :sort,
+          options_for_select([
+            ["Newest First", "newest"],
+            ["Oldest First", "oldest"],
+            ["Name (A-Z)", "name_asc"],
+            ["Name (Z-A)", "name_desc"]
+          ], params[:sort]),
+          class: "form-select ajax-sort",
+          id: "category-sort",
+          data: { url: admin_categories_path } %>
+  </div>
+
+  <div class="col-md-3">
+    <%= select_tag :status,
+        options_for_select([
+          ["All Status", ""],
+          ["Active", "active"],
+          ["Inactive", "inactive"]
+        ], params[:status]),
+        class: "form-select ajax-filter",
+        id: "category-status",
+        data: {
+          url: admin_categories_path
+        } %>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+        
+    <%= render "table_with_pagination" %>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="categoryModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="categoryForm">
+      </div>
+    </div>
+  </div>
+</div>
