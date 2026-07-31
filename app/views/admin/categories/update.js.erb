@@ -1,7 +1,7 @@
 <% if @category.errors.any? %>
-  $("#categoryForm").html("<%= escape_javascript render 'form', category: @category %>");
+  $("#modalBody").html("<%= escape_javascript render 'form', category: @category %>");
 <% else %>
-  $("#categoryModal").modal("hide");
+  $("#commonModal").modal("hide");
   reloadCategories();
   $("#flash").html("<%= escape_javascript render 'shared/flash' %>");
 <% end %>

@@ -1,0 +1,58 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Category</th>
+      <th>Name</th>
+      <th>SKU</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Status</th>
+      <th width="180">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+
+        <td><%= product.category.name %></td>
+
+        <td><%= product.name %></td>
+
+        <td><%= product.sku %></td>
+
+        <td><%= number_to_currency(product.price) %></td>
+
+        <td><%= product.stock %></td>
+
+        <td>
+          <% if product.active? %>
+            <span class="badge bg-success">Active</span>
+          <% else %>
+            <span class="badge bg-danger">Inactive</span>
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to "Edit",
+                      edit_admin_product_path(product),
+                      remote: true,
+                      class: "btn btn-sm btn-warning" %>
+
+          <%= link_to "Delete",
+                      admin_product_path(product),
+                      method: :delete,
+                      remote: true,
+                      data: { confirm: "Are you sure?" },
+                      class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+  <%== pagy_bootstrap_nav(@pagy) %>
+</div>

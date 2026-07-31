@@ -4,7 +4,7 @@
     <small class="text-muted">Manage all product categories</small>
   </div>
 
-  <%= link_to "Add Category", new_admin_category_path, class: "btn btn-primary", data: { bs_toggle: "modal" , bs_target: "#categoryModal" }, remote: true %>
+  <%= link_to "Add Category", new_admin_category_path, class: "btn btn-primary", data: { bs_toggle: "modal" , bs_target: "#commonModal" }, remote: true %>
 </div>
 
 <div class="row mb-3">
@@ -51,19 +51,5 @@
         
     <%= render "table_with_pagination" %>
 
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="categoryModalLabel"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div id="categoryForm">
-      </div>
-    </div>
   </div>
 </div>
